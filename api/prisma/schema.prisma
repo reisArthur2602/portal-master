@@ -1,0 +1,95 @@
+generator client {
+    provider = "prisma-client"
+    output   = "../src/generated/prisma"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+    Admin
+    Member
+}
+
+model User {
+    id       String   @id @default(uuid())
+    name     String   @db.Text
+    email    String   @unique
+    password String   @db.Text
+    role     UserRole @default(Member)
+
+    @@index([email])
+}
+
+model Invite {
+    id        String   @id @default(uuid())
+    email     String   @unique
+    token     String   @unique
+    createdAt DateTime @default(now())
+    expiredAt DateTime
+
+    @@index([email])
+}
+
+model Patient {
+    id        String   @id @default(uuid())
+    name      String   @db.Text
+    cpf       String   @unique
+    phone     String   @unique
+    birthDate DateTime
+    createdAt DateTime @default(now())
+
+    exams Exam[]
+
+    @@index([cpf])
+    @@index([phone])
+    @@index([name])
+}
+
+enum ExamStatus {
+    Pending
+    Ready
+    AwaitingPickup
+    Delivered
+}
+
+enum ExamType {
+    External
+    Dicom
+}
+
+model Exam {
+    id               String     @id @default(uuid())
+    status           ExamStatus @default(Pending)
+    type             ExamType   @default(Dicom)
+    registry         Int        @unique
+    description      String     @db.Text
+    orthanc_study_id String?    @db.Text
+    performedBy      String     @db.Text
+    createdAt        DateTime   @default(now())
+
+    patientId String
+    patient   Patient @relation(fields: [patientId], references: [id])
+
+    attachments Attachment[]
+
+    @@index([patientId])
+    @@index([status])
+    @@index([registry])
+}
+
+model Attachment {
+    id        String   @id @default(uuid())
+    examId    String
+    filename  String
+    path      String   @db.Text
+    size      Int
+    url       String   @db.Text
+    createdAt DateTime @default(now())
+
+    exam Exam @relation(fields: [examId], references: [id])
+
+    @@index([examId])
+}
