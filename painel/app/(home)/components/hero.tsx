@@ -1,15 +1,18 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { ArrowRight } from 'lucide-react';
 
 export const Hero = () => {
     return (
         <section
             id="hero"
-            className="relative flex items-center justify-center overflow-hidden  py-16 transition-all duration-1000 opacity-100 translate-y-0"
+            className="relative flex items-center justify-center overflow-hidden py-8 md:py-16 transition-all duration-1000 opacity-100 translate-y-0"
         >
             <div className="container mx-auto px-4 items-center">
                 <div className="flex gap-8 py-20 lg:py-40 flex-col max-w-5xl mx-auto items-center justify-center">
-                    <Badge variant="outline">✨ Acesso 100% seguro e protegido</Badge>
+                    <Badge variant="outline" className="p-2">
+                        ✨ Acesso 100% seguro e protegido
+                    </Badge>
 
                     <div className="flex gap-6 flex-col items-center justify-center">
                         <h1 className="text-4xl md:text-6xl lg:text-7xl max-w-4xl tracking-tight text-center font-extrabold">
@@ -24,8 +27,8 @@ export const Hero = () => {
                             de exames a qualquer hora, de qualquer lugar, com total segurança e
                             privacidade.
                         </p>
-                        <Button size="lg" className="rounded-xl">
-                            Acessar meus exames
+                        <Button size="lg" className="rounded-full p-6 hover:scale-110 ">
+                            Acessar meus exames <ArrowRight />
                         </Button>
                     </div>
                 </div>
