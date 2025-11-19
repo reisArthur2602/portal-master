@@ -1,15 +1,15 @@
 import type { Metadata } from 'next';
-import { Plus_Jakarta_Sans } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import './globals.css';
 
-const fontSans = Plus_Jakarta_Sans({
+const fontSans = Inter({
     subsets: ['latin'],
     weight: ['300', '400', '500', '600', '700'],
     variable: '--font-sans',
 });
 
 export const metadata: Metadata = {
-    title: 'Portal Master - Painel',
+    title: 'Portal Master - Paciente',
 };
 
 export default function RootLayout({
@@ -18,12 +18,8 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="pt-Br">
-            <body
-                className={`${fontSans.variable} ${fontSans.variable} antialiased min-h-screen flex flex-col `}
-            >
-                {children}
-            </body>
+        <html lang="pt-BR">
+            <body className={`${fontSans.variable} font-sans antialiased`}>{children}</body>
         </html>
     );
 }

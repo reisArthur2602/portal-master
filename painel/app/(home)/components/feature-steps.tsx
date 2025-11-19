@@ -1,0 +1,115 @@
+'use client';
+
+import { cn } from '@/lib/utils';
+import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+
+interface Feature {
+    step: string;
+    title?: string;
+    content: string;
+    image: string;
+}
+
+interface FeatureStepsProps {
+    features: Feature[];
+    className?: string;
+    title?: string;
+    autoPlayInterval?: number; // ms
+}
+
+export const FeatureSteps = ({
+    features,
+    className,
+    title = 'How to get Started',
+    autoPlayInterval = 2000,
+}: FeatureStepsProps) => {
+    const [currentFeature, setCurrentFeature] = useState(0);
+    const [progress, setProgress] = useState(0);
+
+    useEffect(() => {
+        const stepProgress = 100 / (autoPlayInterval / 100);
+
+        const timer = setInterval(() => {
+            setProgress((prev) => {
+                if (prev + stepProgress >= 100) {
+                    setCurrentFeature((prevFeature) => (prevFeature + 1) % features.length);
+                    return 0;
+                }
+                return prev + stepProgress;
+            });
+        }, 100);
+
+        return () => clearInterval(timer);
+    }, [currentFeature, autoPlayInterval, features.length]);
+
+    return (
+        <div className={cn('p-8 md:p-12', className)}>
+            <div className="max-w-7xl mx-auto w-full">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-12 mb:mb-20 text-center tracking-tight">
+                    {title}
+                </h2>
+
+                <div className="flex flex-col md:grid md:grid-cols-2 gap-6 md:gap-10 ">
+                    <div className="order-2 md:order-1 space-y-8">
+                        {features.map((feature, index) => (
+                            <motion.div
+                                key={index}
+                                className="flex items-center gap-6 md:gap-8"
+                                initial={{ opacity: 0.6 }}
+                                animate={{ opacity: index === currentFeature ? 1 : 0.6 }}
+                                transition={{ duration: 0.5 }}
+                            >
+                                {/* Step circle */}
+                                <motion.div
+                                    className={cn(
+                                        'w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center border-2',
+                                        index === currentFeature
+                                            ? 'bg-primary border-primary text-primary-foreground scale-110'
+                                            : 'bg-muted border-muted-foreground/20'
+                                    )}
+                                >
+                                    {index <= currentFeature ? (
+                                        <span className="text-lg font-bold">✓</span>
+                                    ) : (
+                                        <span className="text-lg font-semibold">{index + 1}</span>
+                                    )}
+                                </motion.div>
+
+                                <div className="flex-1">
+                                    <h3 className="text-lg md:text-xl font-semibold text-foreground tracking-normal">
+                                        {feature.title || feature.step}
+                                    </h3>
+                                    <p className="text-sm md:text-base text-muted-foreground font-normal tracking-normal">
+                                        {feature.content}
+                                    </p>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    <div className="order-1 md:order-2 relative h-[200px] md:h-[300px] lg:h-[400px] overflow-hidden rounded-lg">
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={currentFeature}
+                                className="absolute inset-0  overflow-hidden"
+                                initial={{ y: 100, opacity: 0, rotateX: -20 }}
+                                animate={{ y: 0, opacity: 1, rotateX: 0 }}
+                                exit={{ y: -100, opacity: 0, rotateX: 20 }}
+                                transition={{ duration: 0.5, ease: 'easeInOut' }}
+                            >
+                                <Image
+                                    src={features[currentFeature].image}
+                                    alt={features[currentFeature].step}
+                                    fill
+                                    className="object-cover"
+                                />
+                            </motion.div>
+                        </AnimatePresence>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
