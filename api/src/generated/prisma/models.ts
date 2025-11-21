@@ -10,6 +10,7 @@
  */
 export type * from './models/User.ts'
 export type * from './models/Invite.ts'
+export type * from './models/Log.ts'
 export type * from './models/Patient.ts'
 export type * from './models/Exam.ts'
 export type * from './models/Attachment.ts'

@@ -17,6 +17,19 @@ export const UserRole = {
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
 
+export const SystemEvent = {
+  PatientCreated: 'PatientCreated',
+  PatientRemoved: 'PatientRemoved',
+  ExamCreated: 'ExamCreated',
+  ExamReady: 'ExamReady',
+  ExamDelivered: 'ExamDelivered',
+  ExamPickup: 'ExamPickup',
+  ExamRemoved: 'ExamRemoved'
+} as const
+
+export type SystemEvent = (typeof SystemEvent)[keyof typeof SystemEvent]
+
+
 export const ExamStatus = {
   Pending: 'Pending',
   Ready: 'Ready',

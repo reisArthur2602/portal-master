@@ -269,19 +269,19 @@ export type ExamOrderByWithRelationInput = {
 export type ExamWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   registry?: number
+  orthanc_study_id?: string
   AND?: Prisma.ExamWhereInput | Prisma.ExamWhereInput[]
   OR?: Prisma.ExamWhereInput[]
   NOT?: Prisma.ExamWhereInput | Prisma.ExamWhereInput[]
   status?: Prisma.EnumExamStatusFilter<"Exam"> | $Enums.ExamStatus
   type?: Prisma.EnumExamTypeFilter<"Exam"> | $Enums.ExamType
   description?: Prisma.StringFilter<"Exam"> | string
-  orthanc_study_id?: Prisma.StringNullableFilter<"Exam"> | string | null
   performedBy?: Prisma.StringFilter<"Exam"> | string
   createdAt?: Prisma.DateTimeFilter<"Exam"> | Date | string
   patientId?: Prisma.StringFilter<"Exam"> | string
   patient?: Prisma.XOR<Prisma.PatientScalarRelationFilter, Prisma.PatientWhereInput>
   attachments?: Prisma.AttachmentListRelationFilter
-}, "id" | "registry">
+}, "id" | "registry" | "orthanc_study_id">
 
 export type ExamOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -517,10 +517,6 @@ export type IntFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
-}
-
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
 }
 
 export type ExamCreateNestedOneWithoutAttachmentsInput = {

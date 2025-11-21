@@ -19,7 +19,7 @@ model User {
     email    String   @unique
     password String   @db.Text
     role     UserRole @default(Member)
-
+    logs Log[]
     @@index([email])
 }
 
@@ -29,13 +29,39 @@ model Invite {
     token     String   @unique
     createdAt DateTime @default(now())
     expiredAt DateTime
-
     @@index([email])
 }
 
+enum SystemEvent {
+  PatientCreated
+  PatientRemoved
+  ExamCreated
+  ExamReady
+  ExamDelivered
+  ExamPickup
+  ExamRemoved
+}
+
+model Log {
+  id        String      @id @default(uuid())
+  event     SystemEvent
+  message   String
+  createdAt DateTime    @default(now())
+
+  userId    String?
+  user      User?       @relation(fields: [userId], references: [id])
+
+  @@index([event])
+  @@index([createdAt])
+  @@index([userId])
+}
+
+
+
+
 model Patient {
     id        String   @id @default(uuid())
-    name      String   @db.Text
+    name      String
     cpf       String   @unique
     phone     String   @unique
     birthDate DateTime
@@ -65,9 +91,9 @@ model Exam {
     status           ExamStatus @default(Pending)
     type             ExamType   @default(Dicom)
     registry         Int        @unique
-    description      String     @db.Text
-    orthanc_study_id String?    @db.Text
-    performedBy      String     @db.Text
+    description      String
+    orthanc_study_id String?    @unique
+    performedBy      String
     createdAt        DateTime   @default(now())
 
     patientId String
@@ -84,9 +110,9 @@ model Attachment {
     id        String   @id @default(uuid())
     examId    String
     filename  String
-    path      String   @db.Text
+    path      String
     size      Int
-    url       String   @db.Text
+    url       String
     createdAt DateTime @default(now())
 
     exam Exam @relation(fields: [examId], references: [id])

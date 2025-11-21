@@ -51,6 +51,7 @@ export const AnyNull = runtime.objectEnumValues.instances.AnyNull
 export const ModelName = {
   User: 'User',
   Invite: 'Invite',
+  Log: 'Log',
   Patient: 'Patient',
   Exam: 'Exam',
   Attachment: 'Attachment'
@@ -92,6 +93,17 @@ export const InviteScalarFieldEnum = {
 } as const
 
 export type InviteScalarFieldEnum = (typeof InviteScalarFieldEnum)[keyof typeof InviteScalarFieldEnum]
+
+
+export const LogScalarFieldEnum = {
+  id: 'id',
+  event: 'event',
+  message: 'message',
+  createdAt: 'createdAt',
+  userId: 'userId'
+} as const
+
+export type LogScalarFieldEnum = (typeof LogScalarFieldEnum)[keyof typeof LogScalarFieldEnum]
 
 
 export const PatientScalarFieldEnum = {

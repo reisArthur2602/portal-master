@@ -6,7 +6,7 @@
 - [x] Criação de Conta — /auth/criar-conta
       Criação de conta com nome, email e senha para novos usuários.
 
-- [x] Pegar Dados do user logado — /auth/me
+- [x] Pegar Dados do user logado — /auth/profile
       Criação de conta com nome, email e senha para novos usuários.
 
 ### 👥 Módulo de Usuários
@@ -37,8 +37,8 @@
 - [x] Listar Pacientes — /pacientes
       Lista completa com filtros por nome, CPF e registro.
 
-- [x ] Deletar Paciente — /pacientes/:id/deletar
-      Remoção definitiva do cadastro.
+- [] Deletar Paciente — /pacientes/:id/deletar
+  Remoção definitiva do paciente.
 
 - [x] Buscar Dados do Paciente — /pacientes/:id
       Exibe todas as informações do paciente e exames associados.
@@ -49,13 +49,13 @@
       Inclui filtros por registro, CPF, status e data.
 
 - [] Criar Exame — /exames/criar
-      Cadastro de novo exame com informações e anexos.
+  Cadastro de novo exame com informações e anexos.
 
 - [x] Buscar Exame — /exames/:id
       Exibe dados completos, anexos e histórico do exame.
 
-- [ ] Atualizar Status do Exame — /exames/:id/status
-      Permite modificar o status para:
+- [x] Atualizar Status do Exame — /exames/:id/status
+      Permite modificar o status
 
 ### 📊 Módulo de Dashboard
 
@@ -64,8 +64,6 @@
 - Exames pendentes
 - Exames entregues hoje
 - Exames aguardando retirada
-- Tempo médio de entrega
-- Logs do sistema
 - Total de exames entregues
 
 ### ⚙️ Módulo de Configurações

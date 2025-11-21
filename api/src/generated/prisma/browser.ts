@@ -28,6 +28,11 @@ export type User = Prisma.UserModel
  */
 export type Invite = Prisma.InviteModel
 /**
+ * Model Log
+ * 
+ */
+export type Log = Prisma.LogModel
+/**
  * Model Patient
  * 
  */
